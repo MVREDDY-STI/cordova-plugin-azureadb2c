@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-azureadb2c" version="0.0.1">
+   <name>azureadb2c</name>
+   <engines>
+        <engine name="cordova-android" version=">=8.1.0"/>
+        <engine name="cordova-ios" version=">=5.1.1"/>
+    </engines> 
+   <js-module name="azureadb2c" src="www/azureadb2c.js">
+      <clobbers target="cordova.plugins.azureadb2c" />
+   </js-module>
+   <platform name="android">
+      <config-file parent="/*" target="res/xml/config.xml">
+         <feature name="azureadb2c">
+            <param name="android-package" value="cordova-plugin-azureadb2c.azureadb2c" />
+         </feature>
+      </config-file>
+      <config-file parent="/*" target="AndroidManifest.xml" />
+      <source-file src="src/android/azureadb2c.java" target-dir="src/cordova-plugin-azureadb2c/azureadb2c" />
+   </platform>
+   <platform name="ios">
+      <config-file parent="/*" target="config.xml">
+         <feature name="azureadb2c">
+            <param name="ios-package" value="azureadb2c" />
+         </feature>
+      </config-file>
+      <source-file src="src/ios/azureadb2c.m" />
+   </platform>
+</plugin>

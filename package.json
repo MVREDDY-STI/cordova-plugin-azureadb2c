@@ -1,0 +1,32 @@
+{
+  "name": "cordova-plugin-azureadb2c",
+  "version": "0.0.1",
+  "description": "A Cordova plugin providing a wrapper for Microsoft's MSAL library for Android and iOS.",
+  "cordova": {
+    "id": "cordova-plugin-azureadb2c",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MVREDDY-STI/cordova-plugin-azureadb2c.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "dependencies": {
+    "cordova": "^7.0.0",
+    "cordova-android": "^8.1.0",
+    "cordova-ios": "^5.1.1"
+  },
+  "author": "venkat",
+  "license": "Apcahe 2.0",
+  "bugs": {
+    "url": "https://github.com/MVREDDY-STI/cordova-plugin-azureadb2c/issues"
+  },
+  "homepage": "https://github.com/MVREDDY-STI/cordova-plugin-azureadb2c#readme"
+}

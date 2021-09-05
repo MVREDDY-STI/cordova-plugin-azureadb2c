@@ -12,10 +12,34 @@
       <config-file parent="/*" target="res/xml/config.xml">
          <feature name="azureadb2c">
             <param name="android-package" value="cordova-plugin-azureadb2c.azureadb2c" />
+                <preference name="keyHash" value="$KEY_HASH" />
          </feature>
       </config-file>
-      <config-file parent="/*" target="AndroidManifest.xml" />
-      <source-file src="src/android/azureadb2c.java" target-dir="src/cordova-plugin-azureadb2c/azureadb2c" />
+
+       <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET "/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE "/>
+            <uses-permission android:name="android.permission.READ_CONTACTS" />
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="application">
+            <activity
+                android:name="com.microsoft.identity.client.BrowserTabActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <category android:name="android.intent.category.BROWSABLE" />
+                    <data
+                        android:scheme="msauth"
+                        android:host="$PACKAGE_NAME"
+                        android:path="/$KEY_HASH" />
+                </intent-filter>
+            </activity>
+        </config-file>
+        <config-file target="config.xml" parent="/*">
+            <preference name="AndroidXEnabled" value="true" />
+        </config-file>
+        <source-file src="src/android/azureadb2c.java" target-dir="src/cordova-plugin-azureadb2c/azureadb2c" />
+        <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
    </platform>
    <platform name="ios">
       <config-file parent="/*" target="config.xml">
@@ -24,5 +48,78 @@
          </feature>
       </config-file>
       <source-file src="src/ios/azureadb2c.m" />
+       <config-file target="config.xml" parent="/*">
+            <feature name="azureadb2c">
+                <param name="ios-package" value="azureadb2c" />
+                <param name="onload" value="true" />
+            </feature>
+            <feature name="">
+                <param name="ios-package" value="" />
+            </feature>
+            <feature name="MSALPublicClientApplication">
+                <param name="ios-package" value="MSALPublicClientApplication" />
+            </feature>
+            <feature name="MSALPublicClientApplicationConfig">
+                <param name="ios-package" value="MSALPublicClientApplicationConfig" />
+            </feature>
+            <feature name="MSALAccount">
+                <param name="ios-package" value="MSALAccount" />
+            </feature>
+            <feature name="MSALSilentTokenParameters">
+                <param name="ios-package" value="MSALSilentTokenParameters" />
+            </feature>
+            <feature name="MSALResult">
+                <param name="ios-package" value="MSALResult" />
+            </feature>
+            <feature name="MSALWebviewParameters">
+                <param name="ios-package" value="MSALWebviewParameters" />
+            </feature>
+            <feature name="MSALInteractiveTokenParameters">
+                <param name="ios-package" value="MSALInteractiveTokenParameters" />
+            </feature>
+            <feature name="MSALError">
+                <param name="ios-package" value="MSALError" />
+            </feature>
+        </config-file>
+        <podspec>
+            <config>
+                <source url="https://cdn.cocoapods.org/"/>
+            </config>
+            <pods use_frameworks="true">
+                <pod name="MSAL" />
+            </pods>
+        </podspec>
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+            <array>
+                <dict>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>msauth.$PACKAGE_NAME</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+        <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+            <array>
+                <string>msauthv2</string>
+                <string>msauthv3</string>
+            </array>
+        </config-file>
+        <config-file parent="keychain-access-groups" target="*/Entitlements-Debug.plist">
+            <array>
+                <string>$(AppIdentifierPrefix)com.microsoft.adalcache</string>
+            </array>
+        </config-file>
+        <config-file parent="keychain-access-groups" target="*/Entitlements-Release.plist">
+            <array>
+                <string>$(AppIdentifierPrefix)com.microsoft.adalcache</string>
+            </array>
+        </config-file>
+        <header-file src="src/ios/azureadb2c.h" />
+        <header-file src="src/ios/AppDelegate+MsalCallback.h" />
+        <source-file src="src/ios/azureadb2c.m" />
+        <source-file src="src/ios/AppDelegate+MsalCallback.m" />
    </platform>
+
+
 </plugin>
